@@ -143,9 +143,9 @@ public class TravelSalesman {
             List<Route> selected = this.selection(population);
             selected.add(minimalRoute);
             population = this.createGeneration(selected);
+            population.add(minimalRoute);
             globalBestGenome = (Route) Collections.min(population);
             System.out.println(globalBestGenome);
-
             if (globalBestGenome.getFitness() < this.targetFitness) {
                 break;
             } else if (globalBestGenome.getFitness() < minimalRoute.getFitness()) {
