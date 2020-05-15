@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="java-dot">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/graphviz-master.zip!/graphviz-master/contrib/java-dot" />
+      <root url="jar://$USER_HOME$/Downloads/graphviz-master.zip!/graphviz-master/tclpkg/gv" />
+    </SOURCES>
+  </library>
+</component>
