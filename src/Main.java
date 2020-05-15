@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 public class Main {
 
     public static void main(String[] args) {
-        int numberOfCities = 90;
+        int numberOfCities = ConfigParameters.numberOfCities;
         double[][] citiesDistance = new double[numberOfCities][numberOfCities];
         Reader reader = new Reader(ConfigParameters.travelDataPath);
         try {

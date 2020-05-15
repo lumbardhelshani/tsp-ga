@@ -62,9 +62,11 @@ public class GeneticOperators {
     }
 
     public List<Route> CYCLECcrossover(List<Route> parents){
-        //to be implemented
+        //needs debug
         List<Integer> parent1 = new ArrayList(parents.get(0).getSolution());
         List<Integer> parent2 = new ArrayList(parents.get(1).getSolution());
+        Route r1 = new Route(numberOfCities, citiesDistance, startingCity);
+        Route r2 = new Route(numberOfCities, citiesDistance, startingCity);
         final int length = parent1.size();
         List<Route> children = new ArrayList<>(2);
         List<Integer> child1 = parent1;
@@ -101,15 +103,16 @@ public class GeneticOperators {
                 }
             }
             indices.clear();
-            Route r1 = new Route(numberOfCities, citiesDistance, startingCity);
+//            Route r1 = new Route(numberOfCities, citiesDistance, startingCity);
             r1.setSolution(child1);
-            Route r2 = new Route(numberOfCities, citiesDistance, startingCity);
+//            Route r2 = new Route(numberOfCities, citiesDistance, startingCity);
             r2.setSolution(child2);
-            children.add(r1);
-            children.add(r2);
+            //children.add(r1);
+           // children.add(r2);
         }
-
-        return children.subList(0, 2);
+        children.add(r1);
+        children.add(r2);
+        return children;
     }
 
 }

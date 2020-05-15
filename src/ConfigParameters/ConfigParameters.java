@@ -12,7 +12,7 @@ public class ConfigParameters {
     public static int startingCity = 0;
     public static int targetFitness = 0;
     public static int routeSize = numberOfCities - 1;
-    public static String travelDataPath = "C:\\Users\\lumba\\OneDrive\\Desktop\\NOVA IMS\\Intellegence Systems\\Project\\ga-tsp\\src\\data\\travel.txt";
+    public static String travelDataPath = ".\\src\\data\\travel.txt";
 
 
 }

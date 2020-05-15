@@ -67,19 +67,19 @@ public class TravelSalesman {
     public Route rouletteSelection(List<Route> population) {
         double totalFitness = population.stream().map(Route::getFitness).mapToDouble(Double::doubleValue).sum();
         Random random = new Random();
-        int selectedValue = random.nextInt((int) totalFitness);
+        double selectedValue = random.nextInt((int) totalFitness);
         float recValue = 1.0F / (float) selectedValue;
         float currentSum = 0.0F;
-        Iterator var7 = population.iterator();
+        Iterator iterator = population.iterator();
 
         Route genome;
         do {
-            if (!var7.hasNext()) {
+            if (!iterator.hasNext()) {
                 int selectRandom = random.nextInt(this.populationSize);
                 return (Route) population.get(selectRandom);
             }
 
-            genome = (Route) var7.next();
+            genome = (Route) iterator.next();
             currentSum += 1.0F / (float) genome.getFitness();
         } while (currentSum < recValue);
 
@@ -105,24 +105,12 @@ public class TravelSalesman {
         return (Route) Collections.min(selected);
     }
 
-    /*public Route mutate(Route salesman) {
-        Random random = new Random();
-        float mutate = random.nextFloat();
-        if (mutate < this.mutationRate) {
-            List<Integer> genome = salesman.getSolution();
-            Collections.swap(genome, random.nextInt(this.routeSize), random.nextInt(this.routeSize));
-            return new Route(genome, this.numberOfCities, this.citiesDistance, this.startingCity);
-        } else {
-            return salesman;
-        }
-    }*/
-
     public List<Route> createGeneration(List<Route> population) {
         List<Route> generation = new ArrayList();
 
         for (int currentGenerationSize = 0; currentGenerationSize < this.populationSize; currentGenerationSize += 2) {
             List<Route> parents = pickNRandomElements(population, 2);
-            List<Route> children = this.operators.CYCLECcrossover(parents);
+            List<Route> children = this.operators.PMXcrossover(parents);
             children.set(0, this.operators.SWAPmutate((Route) children.get(0)));
             children.set(1, this.operators.SWAPmutate((Route) children.get(1)));
             generation.addAll(children);
@@ -141,11 +129,10 @@ public class TravelSalesman {
 
         for (int i = 0; i < ConfigParameters.maxIterations; ++i) {
             List<Route> selected = this.selection(population);
-            selected.add(minimalRoute);
             population = this.createGeneration(selected);
+            population.add(minimalRoute);
             globalBestGenome = (Route) Collections.min(population);
             System.out.println(globalBestGenome);
-
             if (globalBestGenome.getFitness() < this.targetFitness) {
                 break;
             } else if (globalBestGenome.getFitness() < minimalRoute.getFitness()) {
