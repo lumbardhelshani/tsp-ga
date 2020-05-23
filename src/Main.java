@@ -1,5 +1,6 @@
 
 import ConfigParameters.ConfigParameters;
+import GenticAlgorithm.InitializationType;
 import GenticAlgorithm.SelectionType;
 import GenticAlgorithm.TravelSalesman;
 import Models.Route;
@@ -16,11 +17,11 @@ public class Main {
         try {
             citiesDistance = reader.getCitiesDistance();
         } catch (FileNotFoundException e) {
-
+            e.printStackTrace();
         }
 
         //printTravelPrices(citiesDistance, numberOfCities);
-        TravelSalesman geneticAlgorithm = new TravelSalesman(SelectionType.TOURNAMENT, citiesDistance);
+        TravelSalesman geneticAlgorithm = new TravelSalesman(SelectionType.ROULETTE, citiesDistance, InitializationType.SIMULATEDANNEALING);
         Route result = geneticAlgorithm.optimize();
         System.out.println(result);
 
