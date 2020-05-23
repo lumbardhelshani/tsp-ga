@@ -10,7 +10,7 @@ public class GeneticOperators {
     private int routeSize;
     private int numberOfCities;
     private int startingCity;
-    private float mutationRate;
+    private double mutationRate;
     private double[][] citiesDistance;
 
 
@@ -44,15 +44,15 @@ public class GeneticOperators {
 
         int i;
         int newVal;
-        for(i = 0; i < breakpoint; ++i) {
-            newVal = (Integer)parent2.get(i);
+        for (i = 0; i < breakpoint; ++i) {
+            newVal = (Integer) parent2.get(i);
             Collections.swap(parent1, parent1.indexOf(newVal), i);
         }
 
         children.add(new Route(parent1, this.numberOfCities, this.citiesDistance, this.startingCity));
         List<Integer> parents1Genome = parents.get(0).getSolution();
 
-        for(i = breakpoint; i < this.routeSize; ++i) {
+        for (i = breakpoint; i < this.routeSize; ++i) {
             newVal = parents1Genome.get(i);
             Collections.swap(parent2, parent2.indexOf(newVal), i);
         }
@@ -61,7 +61,7 @@ public class GeneticOperators {
         return children;
     }
 
-    public List<Route> CYCLECcrossover(List<Route> parents){
+    public List<Route> CYCLECcrossover(List<Route> parents) {
         //needs debug
         List<Integer> parent1 = new ArrayList(parents.get(0).getSolution());
         List<Integer> parent2 = new ArrayList(parents.get(1).getSolution());
@@ -74,20 +74,20 @@ public class GeneticOperators {
         Set<Integer> visitedIndices = new HashSet<Integer>(length);
         List<Integer> indices = new ArrayList<Integer>(length);
         int idx = 0;
-        int cycle=1;
-        while(visitedIndices.size() < length){
+        int cycle = 1;
+        while (visitedIndices.size() < length) {
             indices.add(idx);
             int item = parent2.get(idx);
             idx = parent1.indexOf(item);
 
-            while(idx != indices.get(0)){
+            while (idx != indices.get(0)) {
                 indices.add(idx);
                 item = parent2.get(idx);
                 idx = parent1.indexOf(item);
             }
 
-            if(cycle++ % 2 !=0){
-                for (int i :indices){
+            if (cycle++ % 2 != 0) {
+                for (int i : indices) {
                     int tmp = child1.get(i);
                     child1.set(i, child2.get(i));
                     child2.set(i, tmp);
@@ -96,19 +96,16 @@ public class GeneticOperators {
 
             visitedIndices.addAll(indices);
             idx = (indices.get(0) + 1) % length;
-            while (visitedIndices.contains(idx) && visitedIndices.size() <length){
+            while (visitedIndices.contains(idx) && visitedIndices.size() < length) {
                 idx++;
-                if(idx >= length){
+                if (idx >= length) {
                     idx = 0;
                 }
             }
             indices.clear();
-//            Route r1 = new Route(numberOfCities, citiesDistance, startingCity);
             r1.setSolution(child1);
-//            Route r2 = new Route(numberOfCities, citiesDistance, startingCity);
             r2.setSolution(child2);
-            //children.add(r1);
-           // children.add(r2);
+
         }
         children.add(r1);
         children.add(r2);

@@ -18,6 +18,8 @@ public class Route implements Comparable {
     //This is the
     double fitness;
 
+    public double tourProbability;
+
     //This constructor is use to
     public Route(int numberOfCities, double[][] citiesDistance, int startingCity){
         this.citiesDistance = citiesDistance;
@@ -70,6 +72,11 @@ public class Route implements Comparable {
         return fitness;
     }
 
+    public void setTourProbability(double total, double fitness)
+    {
+        this.tourProbability = fitness/total;
+    }
+
     private List<Integer> randomSalesman(){
         List<Integer> result = new ArrayList<>();
         for(int i=0; i<numberOfCities; i++) {
@@ -86,10 +93,10 @@ public class Route implements Comparable {
         sb.append("Route: [");
         sb.append(startingCity);
         for ( int gene: solution) {
-            sb.append(" ");
+            sb.append("->");
             sb.append(gene);
         }
-        sb.append(" ");
+        sb.append("->");
         sb.append(startingCity);
         sb.append("]\nLength: ");
         sb.append(this.fitness);
