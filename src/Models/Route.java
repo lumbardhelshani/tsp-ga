@@ -21,15 +21,16 @@ public class Route implements Comparable {
     public double tourProbability;
 
     //This constructor is use to
-    public Route(int numberOfCities, double[][] citiesDistance, int startingCity){
+    public Route(int numberOfCities, double[][] citiesDistance, int startingCity) {
         this.citiesDistance = citiesDistance;
         this.startingCity = startingCity;
         this.numberOfCities = numberOfCities;
         solution = randomSalesman();
         fitness = this.calculateFitness();
     }
+
     //This constructor is used to generate a Route with a specific order of cities, defined from user
-    public Route(List<Integer> permutationOfCities, int numberOfCities, double[][] citiesDistance, int startingCity){
+    public Route(List<Integer> permutationOfCities, int numberOfCities, double[][] citiesDistance, int startingCity) {
         solution = permutationOfCities;
         this.citiesDistance = citiesDistance;
         this.startingCity = startingCity;
@@ -43,7 +44,7 @@ public class Route implements Comparable {
         return solution;
     }
 
-    public void setSolution(List<Integer> sol){
+    public void setSolution(List<Integer> sol) {
         this.solution = sol;
     }
 
@@ -60,27 +61,26 @@ public class Route implements Comparable {
     }
 
 
-    public double calculateFitness(){
+    public double calculateFitness() {
         double fitness = 0;
         int currentCity = startingCity;
-        for ( int city : solution) {
+        for (int city : solution) {
             fitness += citiesDistance[currentCity][city];
             currentCity = city;
         }
 
-        fitness += citiesDistance[solution.get(numberOfCities-2)][startingCity];
+        fitness += citiesDistance[solution.get(numberOfCities - 2)][startingCity];
         return fitness;
     }
 
-    public void setTourProbability(double total, double fitness)
-    {
-        this.tourProbability = fitness/total;
+    public void setTourProbability(double total, double fitness) {
+        this.tourProbability = fitness / total;
     }
 
-    private List<Integer> randomSalesman(){
+    private List<Integer> randomSalesman() {
         List<Integer> result = new ArrayList<>();
-        for(int i=0; i<numberOfCities; i++) {
-            if(i!=startingCity)
+        for (int i = 0; i < numberOfCities; i++) {
+            if (i != startingCity)
                 result.add(i);
         }
         Collections.shuffle(result);
@@ -92,7 +92,7 @@ public class Route implements Comparable {
         StringBuilder sb = new StringBuilder();
         sb.append("Route: [");
         sb.append(startingCity);
-        for ( int gene: solution) {
+        for (int gene : solution) {
             sb.append("->");
             sb.append(gene);
         }
@@ -107,9 +107,9 @@ public class Route implements Comparable {
     @Override
     public int compareTo(Object o) {
         Route route = (Route) o;
-        if(this.fitness > route.getFitness())
+        if (this.fitness > route.getFitness())
             return 1;
-        else if(this.fitness < route.getFitness())
+        else if (this.fitness < route.getFitness())
             return -1;
         else
             return 0;

@@ -1,17 +1,25 @@
-
 import ConfigParameters.ConfigParameters;
 import GenticAlgorithm.InitializationType;
 import GenticAlgorithm.SelectionType;
 import GenticAlgorithm.TravelSalesman;
 import Models.Route;
 import Reader.Reader;
-
 import java.io.FileNotFoundException;
 
 public class Main {
 
     public static void main(String[] args) {
         int numberOfCities = ConfigParameters.numberOfCities;
+        double[][] citiesDistance = getDoubles(numberOfCities);
+        //printTravelPrices(citiesDistance, numberOfCities);
+        TravelSalesman geneticAlgorithm = new TravelSalesman(SelectionType.TOURNAMENT, citiesDistance, InitializationType.HILLCLIMBING);
+        Route result = geneticAlgorithm.optimize();
+        System.out.println(result);
+
+    }
+
+    //This method is used to read the distance matrix of cities from a txt file
+    private static double[][] getDoubles(int numberOfCities) {
         double[][] citiesDistance = new double[numberOfCities][numberOfCities];
         Reader reader = new Reader(ConfigParameters.travelDataPath);
         try {
@@ -19,12 +27,7 @@ public class Main {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        //printTravelPrices(citiesDistance, numberOfCities);
-        TravelSalesman geneticAlgorithm = new TravelSalesman(SelectionType.ROULETTE, citiesDistance, InitializationType.SIMULATEDANNEALING);
-        Route result = geneticAlgorithm.optimize();
-        System.out.println(result);
-
+        return citiesDistance;
     }
 
     //This method is used to print in the console the distances between each city, corresponding to a matrix.

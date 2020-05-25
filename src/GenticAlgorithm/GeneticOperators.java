@@ -23,6 +23,8 @@ public class GeneticOperators {
 
     }
 
+    //The implementation of the genetic operator SWAPmutate
+    //which gets 2 random positions on the array and swaps them.
     public Route SWAPmutate(Route route) {
         Random random = new Random();
         float mutate = random.nextFloat();
@@ -35,6 +37,7 @@ public class GeneticOperators {
         }
     }
 
+    //Implementation of the PMXCrossover Algorithim
     public List<Route> PMXcrossover(List<Route> parents) {
         Random random = new Random();
         int breakpoint = random.nextInt(this.routeSize);
@@ -60,7 +63,7 @@ public class GeneticOperators {
         children.add(new Route(parent2, this.numberOfCities, this.citiesDistance, this.startingCity));
         return children;
     }
-
+    //Implementation of the CYCLECrossover Algorithim
     public List<Route> CYCLECcrossover(List<Route> parents) {
         //needs debug
         List<Integer> parent1 = new ArrayList(parents.get(0).getSolution());

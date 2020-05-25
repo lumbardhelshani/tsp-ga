@@ -4,6 +4,8 @@ import Models.Route;
 
 import java.util.List;
 
+
+//Inteface that the initializing methods use.
 public interface InitializationApproach {
-    public List<Route> population();
+    List<Route> population();
 }

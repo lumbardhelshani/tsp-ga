@@ -1,8 +1,11 @@
 package ConfigParameters;
 
+
+//Here are the global parameters for the application.
 public class ConfigParameters {
     private ConfigParameters() {
     }
+
 
     public static int populationSize = 20;
     public static int reproductionSize = 20;
@@ -12,8 +15,9 @@ public class ConfigParameters {
     public static double crossoverRate = 1 - mutationRate;
     public static int numberOfCities = 90;
     public static int startingCity = 0;
-    public static int targetFitness = 0;
+    public static int targetFitness =0;
     public static int routeSize = numberOfCities - 1;
+    public static int hillClimbingMaxNeighbors = populationSize;
     public static String travelDataPath = ".\\src\\data\\travel.txt";
 
 

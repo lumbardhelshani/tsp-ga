@@ -3,11 +3,7 @@ package GenticAlgorithm;
 import ConfigParameters.ConfigParameters;
 import Models.Route;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class TravelSalesman {
     private int populationSize;
@@ -25,6 +21,7 @@ public class TravelSalesman {
     private GeneticOperators operators;
     private InitializationType initializationType;
 
+    //This is a class constructor for this algorithm to initialize the initial values.
     public TravelSalesman(SelectionType selectionType, double[][] citiesDistance, InitializationType initializationType) {
         this.selectionType = selectionType;
         this.citiesDistance = citiesDistance;
@@ -41,6 +38,7 @@ public class TravelSalesman {
         this.initializationType = initializationType;
     }
 
+    //This methods is used to add empty ( 0 ) data into the Route array.
     public List<Route> initialPopulation() {
         List<Route> population = new ArrayList();
 
@@ -50,6 +48,7 @@ public class TravelSalesman {
         return population;
     }
 
+    //This method is used to specify the way which is used to select the generation.
     public List<Route> selection(List<Route> population) {
         List<Route> selected = new ArrayList();
 
@@ -64,6 +63,7 @@ public class TravelSalesman {
     }
 
 
+    //This method is used to grab N random elements from the given route list.
     public static <E> List<E> pickNRandomElements(List<E> list, int n) {
         Random r = new Random();
         int length = list.size();
@@ -78,25 +78,9 @@ public class TravelSalesman {
         }
     }
 
+    //Roulette Selection Approach ( this method has 3 types of implementation, we used the 1st one because it suits us the best )
     public Route rouletteSelection(List<Route> population) {
         //Implementation 1
-        /*double totalFitness = population.stream().map(Route::getFitness).mapToDouble(Double::doubleValue).sum();
-        Random random = new Random();
-        double selectedValue = random.nextInt((int) totalFitness);
-        float recValue = 1.0F / (float) selectedValue;
-        float currentSum = 0.0F;
-        for(Route route: population){
-            currentSum+=(float)1/route.getFitness();
-            if(currentSum >= recValue){
-                return route;
-            }
-
-        }
-        int selectRandom = random.nextInt(populationSize);
-        return population.get(selectRandom);*/
-
-
-        //Implementation 2
         double totalSum = 0.0;
         Route r = null;
         for (int i = 0; i < population.size(); i++) {
@@ -121,6 +105,23 @@ public class TravelSalesman {
 
         return r;
 
+        //Implementation 2
+        /*double totalFitness = population.stream().map(Route::getFitness).mapToDouble(Double::doubleValue).sum();
+        Random random = new Random();
+        double selectedValue = random.nextInt((int) totalFitness);
+        float recValue = 1.0F / (float) selectedValue;
+        float currentSum = 0.0F;
+        for(Route route: population){
+            currentSum+=(float)1/route.getFitness();
+            if(currentSum >= recValue){
+                return route;
+            }
+
+        }
+        int selectRandom = random.nextInt(populationSize);
+        return population.get(selectRandom);*/
+
+
         //Implementation 3
         /*Iterator iterator = population.iterator();
 
@@ -138,11 +139,12 @@ public class TravelSalesman {
         return genome;*/
     }
 
+    //Tournament Selection Approach
     public Route tournamentSelection(List<Route> population) {
         List<Route> selected = pickNRandomElements(population, this.tournamentSize);
         return (Route) Collections.min(selected);
     }
-
+    //This method creates a new generation by applying the genetic operators by a choosen probability.
     public List<Route> createGeneration(List<Route> population) {
         List<Route> generation = new ArrayList();
 
@@ -162,13 +164,10 @@ public class TravelSalesman {
         return generation;
     }
 
+    //Here starts the executation of the algorithm.
     public Route optimize() {
-
-        //This two line below this comment should be removed from the comment afer we have a fully implemented WindowTSP display
-        //City[] citiesCoordinates = Reader.getCitiesCoordinates("C:\\Users\\lumba\\OneDrive\\Desktop\\citiesCoordinates.txt");
-        //WindowTSP display = new WindowTSP(citiesCoordinates);
-
         List<Route> population;
+        //Here at InitializationType, we choose the selected algorithm.
         if (this.initializationType == InitializationType.HILLCLIMBING) {
             HillClimbing hl = new HillClimbing(100);
             population = hl.population();
@@ -194,11 +193,10 @@ public class TravelSalesman {
             population.add(minimalRoute);
             globalBestGenome = (Route) Collections.min(population);
             System.out.println(i + " " + globalBestGenome.getFitness());
-            if (globalBestGenome.getFitness() < this.targetFitness) {
+            if (globalBestGenome.getFitness() <= this.targetFitness) {
                 break;
             } else if (globalBestGenome.getFitness() < minimalRoute.getFitness()) {
                 minimalRoute = globalBestGenome;
-                //display.draw(globalBestGenome);
             }
         }
 
@@ -206,13 +204,4 @@ public class TravelSalesman {
 
     }
 
-    public void printGeneration(List<Route> generation) {
-        Iterator var2 = generation.iterator();
-
-        while (var2.hasNext()) {
-            Route genome = (Route) var2.next();
-            System.out.println(genome);
-        }
-
-    }
 }
