@@ -3,7 +3,6 @@ package GenticAlgorithm;
 import ConfigParameters.ConfigParameters;
 import Models.Route;
 import Reader.Reader;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +17,7 @@ public class SimulatedAnnealing implements InitializationApproach {
         this.coolingRate = coolingRate;
     }
 
+    //Ths is the method that returns a list of routes based on simulated annealing initialization.
     @Override
     public List<Route> population() {
 
@@ -62,6 +62,7 @@ public class SimulatedAnnealing implements InitializationApproach {
                 // Cool system
                 startingTemperature *= 1 - coolingRate;
             }
+
             initialPopulation.add(bestRoute);
         }
         // Loop until system has cooled
@@ -69,6 +70,7 @@ public class SimulatedAnnealing implements InitializationApproach {
         return initialPopulation;
     }
 
+    //This method is used to initialize a random route.
     private List<Integer> randomRoute() {
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < ConfigParameters.numberOfCities; i++) {
@@ -79,6 +81,7 @@ public class SimulatedAnnealing implements InitializationApproach {
         return result;
     }
 
+    //This methods checks the probability to choose or not a specific route.
     public static double acceptanceProbability(double energy, double newEnergy, double temperature) {
         // If the new solution is better, accept it
         if (newEnergy < energy) {
