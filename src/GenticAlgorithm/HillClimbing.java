@@ -10,10 +10,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class HillClimbing implements InitializationApproach{
+public class HillClimbing implements InitializationApproach {
     int iterationsBeforeMaxima;
 
-    public HillClimbing(int iterationsBeforeMaxima){
+    public HillClimbing(int iterationsBeforeMaxima) {
         this.iterationsBeforeMaxima = iterationsBeforeMaxima;
     }
 
@@ -28,7 +28,7 @@ public class HillClimbing implements InitializationApproach{
             e.printStackTrace();
         }
         List<Route> initialPopulation = new ArrayList<>();
-        for (int i = 0; i <ConfigParameters.populationSize ; i++) {
+        for (int i = 0; i < ConfigParameters.populationSize; i++) {
             Route route = new Route(randomRoute(), numberOfCities, citiesDistance, 0);
             Route neighborRoute;
             for (int j = 0; j < iterationsBeforeMaxima; j++) {
@@ -44,10 +44,10 @@ public class HillClimbing implements InitializationApproach{
     }
 
 
-    public Route getNeighbor(Route r, int numberOfCities){
-        int x1 = 0,x2 = 0;
+    public Route getNeighbor(Route r, int numberOfCities) {
+        int x1 = 0, x2 = 0;
 
-        while (x1==x2){
+        while (x1 == x2) {
             x1 = (int) (Math.random() * numberOfCities);
             x2 = (int) (Math.random() * numberOfCities);
         }
@@ -60,10 +60,10 @@ public class HillClimbing implements InitializationApproach{
         return r;
     }
 
-    private List<Integer> randomRoute(){
+    private List<Integer> randomRoute() {
         List<Integer> result = new ArrayList<>();
-        for(int i=0; i<ConfigParameters.numberOfCities; i++) {
-            if(i!=ConfigParameters.startingCity)
+        for (int i = 0; i < ConfigParameters.numberOfCities; i++) {
+            if (i != ConfigParameters.startingCity)
                 result.add(i);
         }
         Collections.shuffle(result);

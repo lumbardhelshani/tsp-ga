@@ -1,5 +1,4 @@
 package Models;
-import java.util.Random;
 
 public class City {
 
@@ -7,21 +6,21 @@ public class City {
     private int x, y;
 
 
-    public City (int id, int x, int y) {
+    public City(int id, int x, int y) {
         this.id = id;
         this.x = x;
         this.y = y;
     }
 
-    public int getId () {
+    public int getId() {
         return id;
     }
 
-    public int getX () {
+    public int getX() {
         return x;
     }
 
-    public int getY () {
+    public int getY() {
         return y;
     }
 

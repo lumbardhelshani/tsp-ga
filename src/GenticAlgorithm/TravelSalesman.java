@@ -3,11 +3,7 @@ package GenticAlgorithm;
 import ConfigParameters.ConfigParameters;
 import Models.Route;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class TravelSalesman {
     private int populationSize;
@@ -80,23 +76,6 @@ public class TravelSalesman {
 
     public Route rouletteSelection(List<Route> population) {
         //Implementation 1
-        /*double totalFitness = population.stream().map(Route::getFitness).mapToDouble(Double::doubleValue).sum();
-        Random random = new Random();
-        double selectedValue = random.nextInt((int) totalFitness);
-        float recValue = 1.0F / (float) selectedValue;
-        float currentSum = 0.0F;
-        for(Route route: population){
-            currentSum+=(float)1/route.getFitness();
-            if(currentSum >= recValue){
-                return route;
-            }
-
-        }
-        int selectRandom = random.nextInt(populationSize);
-        return population.get(selectRandom);*/
-
-
-        //Implementation 2
         double totalSum = 0.0;
         Route r = null;
         for (int i = 0; i < population.size(); i++) {
@@ -120,6 +99,23 @@ public class TravelSalesman {
         }
 
         return r;
+
+        //Implementation 2
+        /*double totalFitness = population.stream().map(Route::getFitness).mapToDouble(Double::doubleValue).sum();
+        Random random = new Random();
+        double selectedValue = random.nextInt((int) totalFitness);
+        float recValue = 1.0F / (float) selectedValue;
+        float currentSum = 0.0F;
+        for(Route route: population){
+            currentSum+=(float)1/route.getFitness();
+            if(currentSum >= recValue){
+                return route;
+            }
+
+        }
+        int selectRandom = random.nextInt(populationSize);
+        return population.get(selectRandom);*/
+
 
         //Implementation 3
         /*Iterator iterator = population.iterator();
