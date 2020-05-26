@@ -29,6 +29,7 @@ public class Route implements Comparable {
         fitness = this.calculateFitness();
     }
 
+
     //This constructor is used to generate a Route with a specific order of cities, defined from user
     public Route(List<Integer> permutationOfCities, int numberOfCities, double[][] citiesDistance, int startingCity) {
         solution = permutationOfCities;

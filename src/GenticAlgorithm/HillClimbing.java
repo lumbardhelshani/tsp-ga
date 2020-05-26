@@ -20,6 +20,7 @@ public class HillClimbing implements InitializationApproach {
 
     //Ths is the method that returns a list of routes based on hill climbing initialization.
     @Override
+
     public List<Route> population() {
         int numberOfCities = ConfigParameters.numberOfCities;
         double[][] citiesDistance = new double[numberOfCities][numberOfCities];
@@ -45,6 +46,7 @@ public class HillClimbing implements InitializationApproach {
             initialPopulation.add(route);
 
         }
+
         return initialPopulation;
 
     }
