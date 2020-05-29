@@ -20,9 +20,10 @@ public class TravelSalesman {
     private Route minimalRoute;
     private GeneticOperators operators;
     private InitializationType initializationType;
+    private CrossoverType crossoverType;
 
     //This is a class constructor for this algorithm to initialize the initial values.
-    public TravelSalesman(SelectionType selectionType, double[][] citiesDistance, InitializationType initializationType) {
+    public TravelSalesman(SelectionType selectionType, double[][] citiesDistance, InitializationType initializationType, CrossoverType crossoverType) {
         this.selectionType = selectionType;
         this.citiesDistance = citiesDistance;
         this.numberOfCities = ConfigParameters.numberOfCities;
@@ -36,6 +37,7 @@ public class TravelSalesman {
         this.tournamentSize = ConfigParameters.tournamentSize;
         operators = new GeneticOperators(this.citiesDistance);
         this.initializationType = initializationType;
+        this.crossoverType = crossoverType;
     }
 
     //This methods is used to add empty ( 0 ) data into the Route array.
@@ -149,9 +151,13 @@ public class TravelSalesman {
         for (int currentGenerationSize = 0; currentGenerationSize < this.populationSize; currentGenerationSize += 2) {
             List<Route> parents = pickNRandomElements(population, 2);
             List<Route> children = new ArrayList<>();
-            if (ConfigParameters.crossoverRate > Math.random()) {
+            if (ConfigParameters.crossoverRate > Math.random() && this.crossoverType == CrossoverType.PMX) {
                 children = this.operators.PMXcrossover(parents);
-            } else {
+            }
+            else  if(ConfigParameters.crossoverRate > Math.random() && this.crossoverType == CrossoverType.CYCLE){
+                children = this.operators.CYCLECcrossover(parents);
+            }
+            else {
                 children.add(this.operators.SWAPmutate((Route) parents.get(0)));
                 children.add(this.operators.SWAPmutate((Route) parents.get(1)));
             }
@@ -190,8 +196,12 @@ public class TravelSalesman {
             population.remove(worstRoute);
             population.add(minimalRoute);
             globalBestGenome = (Route) Collections.min(population);
-            System.out.println("Generation " + i + ": " + globalBestGenome);
-            System.out.println(globalBestGenome.getFitness() + "\n");
+            if(i % 200 == 0 || i == ConfigParameters.maxIterations-1){
+                System.out.println(i + "," + globalBestGenome.getFitness());
+            }
+
+            //System.out.println("Generation " + i + ": " + globalBestGenome);
+            //System.out.println(globalBestGenome.getFitness() + "\n");
 
             if (globalBestGenome.getFitness() <= this.targetFitness) {
                 break;
