@@ -51,7 +51,6 @@ public class TravelSalesman {
     //This method is used to specify the way which is used to select the generation.
     public List<Route> selection(List<Route> population) {
         List<Route> selected = new ArrayList();
-
         for (int i = 0; i < this.reproductionSize; ++i) {
             if (this.selectionType == SelectionType.ROULETTE) {
                 selected.add(this.rouletteSelection(population));
@@ -61,7 +60,6 @@ public class TravelSalesman {
         }
         return selected;
     }
-
 
     //This method is used to grab N random elements from the given route list.
     public static <E> List<E> pickNRandomElements(List<E> list, int n) {
@@ -193,7 +191,8 @@ public class TravelSalesman {
             population.add(minimalRoute);
             globalBestGenome = (Route) Collections.min(population);
             System.out.println("Generation " + i + ": " + globalBestGenome);
-            System.out.println(globalBestGenome.getFitness());
+            System.out.println(globalBestGenome.getFitness() + "\n");
+
             if (globalBestGenome.getFitness() <= this.targetFitness) {
                 break;
             } else if (globalBestGenome.getFitness() < minimalRoute.getFitness()) {
