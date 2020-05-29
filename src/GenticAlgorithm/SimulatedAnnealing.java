@@ -11,29 +11,25 @@ import java.util.List;
 public class SimulatedAnnealing implements InitializationApproach {
     private double startingTemperature;
     private double coolingRate;
+    private double[][] citiesDistance;
 
     public SimulatedAnnealing(double startingTemperature, double coolingRate) {
         this.startingTemperature = startingTemperature;
         this.coolingRate = coolingRate;
-    }
-
-    //Ths is the method that returns a list of routes based on simulated annealing initialization.
-    @Override
-    public List<Route> population() {
-
         int numberOfCities = ConfigParameters.numberOfCities;
-        double[][] citiesDistance = new double[numberOfCities][numberOfCities];
+        citiesDistance = new double[numberOfCities][numberOfCities];
         Reader reader = new Reader(ConfigParameters.travelDataPath);
         try {
             citiesDistance = reader.getCitiesDistance();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
-        GeneticOperators go = new GeneticOperators(citiesDistance);
+    //Ths is the method that returns a list of routes based on simulated annealing initialization.
+    @Override
+    public List<Route> population() {
         List<Route> initialPopulation = new ArrayList<>();
-
-
         for (int i = 0; i < ConfigParameters.populationSize; i++) {
             Route currentRoute = new Route(randomRoute(), 90, citiesDistance, 0);
             Route bestRoute = currentRoute;
@@ -42,7 +38,7 @@ public class SimulatedAnnealing implements InitializationApproach {
                 List<Integer> permutations = randomRoute();
                 Route newRoute = new Route(permutations, 90, citiesDistance, 0);
 
-                newRoute = go.SWAPmutate(newRoute);
+                newRoute = getNeighbor(newRoute);
 
                 // Get energy of solutions
                 double currentEnergy = currentRoute.getFitness();
@@ -68,6 +64,22 @@ public class SimulatedAnnealing implements InitializationApproach {
         // Loop until system has cooled
 
         return initialPopulation;
+    }
+
+    //This method returns a neighbor route based on swap mutation for the input rotue.
+    private Route getNeighbor(Route r){
+        GeneticOperators go = new GeneticOperators(citiesDistance);
+        return go.SWAPmutate(r);
+    }
+
+    //This method returns the number of neighbors for a specific route, decided by user.
+    private List<Route> getNeigbhors(Route r, int nr){
+        List<Route> neighbors = new ArrayList<>();
+        for (int i = 0; i < nr; i++) {
+            Route neighbor = getNeighbor(r);
+            neighbors.add(neighbor);
+        }
+        return neighbors;
     }
 
     //This method is used to initialize a random route.
