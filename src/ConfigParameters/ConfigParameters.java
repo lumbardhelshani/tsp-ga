@@ -15,7 +15,6 @@ public class ConfigParameters {
     public static int numberOfCities = 90;
     public static int startingCity = 0;
     public static int targetFitness = 0;
-    public static int routeSize = numberOfCities - 1;
-    //public static int hillClimbingMaxNeighbors = populationSize;
+    public static int routeSize = numberOfCities-1;
     public static String travelDataPath = ".\\src\\data\\travel.txt";
 }
