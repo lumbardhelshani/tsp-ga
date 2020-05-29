@@ -69,7 +69,6 @@ public class Route implements Comparable {
             fitness += citiesDistance[currentCity][city];
             currentCity = city;
         }
-
         fitness += citiesDistance[solution.get(numberOfCities - 2)][startingCity];
         return fitness;
     }

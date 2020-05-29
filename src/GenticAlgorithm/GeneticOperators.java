@@ -65,7 +65,7 @@ public class GeneticOperators {
     }
     //Implementation of the CYCLECrossover Algorithim
     public List<Route> CYCLECcrossover(List<Route> parents) {
-        //needs debug
+        //needs debug, not performing good
         List<Integer> parent1 = new ArrayList(parents.get(0).getSolution());
         List<Integer> parent2 = new ArrayList(parents.get(1).getSolution());
         Route r1 = new Route(numberOfCities, citiesDistance, startingCity);
