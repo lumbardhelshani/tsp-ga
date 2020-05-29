@@ -12,7 +12,7 @@ public class Main {
         int numberOfCities = ConfigParameters.numberOfCities;
         double[][] citiesDistance = getDoubles(numberOfCities);
         //printTravelPrices(citiesDistance, numberOfCities);
-        TravelSalesman geneticAlgorithm = new TravelSalesman(SelectionType.TOURNAMENT, citiesDistance, InitializationType.SIMULATEDANNEALING);
+        TravelSalesman geneticAlgorithm = new TravelSalesman(SelectionType.ROULETTE, citiesDistance, InitializationType.HILLCLIMBING);
         Route result = geneticAlgorithm.optimize();
         System.out.println(result);
 

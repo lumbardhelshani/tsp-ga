@@ -125,18 +125,18 @@ public class TravelSalesman {
         //Implementation 3
         /*Iterator iterator = population.iterator();
 
-        Route genome;
+        Route r;
         do {
             if (!iterator.hasNext()) {
                 int selectRandom = random.nextInt(this.populationSize);
                 return (Route) population.get(selectRandom);
             }
 
-            genome = (Route) iterator.next();
-            currentSum += 1.0F / (float) genome.getFitness();
+            r = (Route) iterator.next();
+            currentSum += 1.0F / (float) r.getFitness();
         } while (currentSum < recValue);
 
-        return genome;*/
+        return r;*/
     }
 
     //Tournament Selection Approach
@@ -192,7 +192,8 @@ public class TravelSalesman {
             population.remove(worstRoute);
             population.add(minimalRoute);
             globalBestGenome = (Route) Collections.min(population);
-            System.out.println(i + " " + globalBestGenome.getFitness());
+            System.out.println("Generation " + i + ": " + globalBestGenome);
+            System.out.println(globalBestGenome.getFitness());
             if (globalBestGenome.getFitness() <= this.targetFitness) {
                 break;
             } else if (globalBestGenome.getFitness() < minimalRoute.getFitness()) {

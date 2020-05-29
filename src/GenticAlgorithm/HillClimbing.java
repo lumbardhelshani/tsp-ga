@@ -12,9 +12,11 @@ import java.util.Random;
 
 public class HillClimbing implements InitializationApproach {
     int iterationsBeforeMaxima;
+    int numberOfCities;
 
     public HillClimbing(int iterationsBeforeMaxima) {
         this.iterationsBeforeMaxima = iterationsBeforeMaxima;
+        numberOfCities = ConfigParameters.numberOfCities;
     }
 
 
@@ -22,7 +24,6 @@ public class HillClimbing implements InitializationApproach {
     @Override
 
     public List<Route> population() {
-        int numberOfCities = ConfigParameters.numberOfCities;
         double[][] citiesDistance = new double[numberOfCities][numberOfCities];
         Reader reader = new Reader(ConfigParameters.travelDataPath);
         try {
@@ -65,6 +66,15 @@ public class HillClimbing implements InitializationApproach {
         r.getSolution().set(x2, number2);
 
         return r;
+    }
+
+    public List<Route> getNeighbors(Route r, int nr){
+        List<Route> neighbors = new ArrayList<>();
+        for (int i = 0; i < nr; i++) {
+            Route neighbor = getNeighbor(r, numberOfCities);
+            neighbors.add(neighbor);
+        }
+        return neighbors;
     }
 
     //This method is used to initialize a random route.
