@@ -2,7 +2,6 @@ package GenticAlgorithm;
 
 import ConfigParameters.ConfigParameters;
 import Models.Route;
-
 import java.util.*;
 
 public class TravelSalesman {
@@ -43,7 +42,6 @@ public class TravelSalesman {
     //This methods is used to add empty ( 0 ) data into the Route array.
     public List<Route> initialPopulation() {
         List<Route> population = new ArrayList();
-
         for (int i = 0; i < this.populationSize; ++i) {
             population.add(new Route(this.numberOfCities, this.citiesDistance, this.startingCity));
         }
@@ -73,7 +71,6 @@ public class TravelSalesman {
             for (int i = length - 1; i >= length - n; --i) {
                 Collections.swap(list, i, r.nextInt(i + 1));
             }
-
             return list.subList(length - n, length);
         }
     }
@@ -102,7 +99,6 @@ public class TravelSalesman {
                 break;
             }
         }
-
         return r;
 
         //Implementation 2
@@ -147,7 +143,6 @@ public class TravelSalesman {
     //This method creates a new generation by applying the genetic operators by a choosen probability.
     public List<Route> createGeneration(List<Route> population) {
         List<Route> generation = new ArrayList();
-
         for (int currentGenerationSize = 0; currentGenerationSize < this.populationSize; currentGenerationSize += 2) {
             List<Route> parents = pickNRandomElements(population, 2);
             List<Route> children = new ArrayList<>();
@@ -164,7 +159,6 @@ public class TravelSalesman {
 
             generation.addAll(children);
         }
-
         return generation;
     }
 
@@ -185,10 +179,8 @@ public class TravelSalesman {
             System.out.println("Please check if you have selected the initialization type");
             System.exit(0);
         }
-
         Route globalBestGenome = (Route) Collections.min(population);
         minimalRoute = globalBestGenome;
-
         for (int i = 0; i < ConfigParameters.maxIterations; ++i) {
             List<Route> selected = this.selection(population);
             population = this.createGeneration(selected);
@@ -199,19 +191,14 @@ public class TravelSalesman {
             if(i % 200 == 0 || i == ConfigParameters.maxIterations-1){
                 System.out.println(i + "," + globalBestGenome.getFitness());
             }
-
             //System.out.println("Generation " + i + ": " + globalBestGenome);
             //System.out.println(globalBestGenome.getFitness() + "\n");
-
             if (globalBestGenome.getFitness() <= this.targetFitness) {
                 break;
             } else if (globalBestGenome.getFitness() < minimalRoute.getFitness()) {
                 minimalRoute = globalBestGenome;
             }
         }
-
         return minimalRoute;
-
     }
-
 }

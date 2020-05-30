@@ -1,7 +1,6 @@
 package Reader;
 
 import ConfigParameters.ConfigParameters;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -19,7 +18,6 @@ public class Reader {
         File file = new File(filepath);
         Scanner sc = new Scanner(file);
         double[][] distances = new double[ConfigParameters.numberOfCities][ConfigParameters.numberOfCities];
-
         String st;
         int city = 0;
         while (sc.hasNextLine()) {
@@ -32,35 +30,6 @@ public class Reader {
             city++;
         }
         return distances;
-
     }
-
-    //This method is only used to get cities x and y coordinates and draw them in a panel, but the display is not fully implemented.
-    //Undo the block comment after the display if fully implemented.
-    /*public static City[] getCitiesCoordinates(String filepath) {
-        int numOfCities = ConfigParameters.numberOfCities;
-        City[] cities = new City[numOfCities];
-        try {
-            File file = new File(filepath);
-            Scanner sc = new Scanner(file);
-            String st;
-            int i = 0;
-            while (sc.hasNextLine()) {
-                st = sc.nextLine();
-                String[] vals = st.split(" ");
-                int id = Integer.parseInt(vals[0]);
-                int x = Integer.parseInt(vals[1]);
-                int y = Integer.parseInt(vals[2]);
-                City c = new City(id, x, y);
-                cities[i] = c;
-                i++;
-
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return cities;
-    }*/
-
 }
 

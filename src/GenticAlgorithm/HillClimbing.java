@@ -3,7 +3,6 @@ package GenticAlgorithm;
 import ConfigParameters.ConfigParameters;
 import Models.Route;
 import Reader.Reader;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,10 +18,8 @@ public class HillClimbing implements InitializationApproach {
         numberOfCities = ConfigParameters.numberOfCities;
     }
 
-
     //Ths is the method that returns a list of routes based on hill climbing initialization.
     @Override
-
     public List<Route> population() {
         double[][] citiesDistance = new double[numberOfCities][numberOfCities];
         Reader reader = new Reader(ConfigParameters.travelDataPath);
@@ -34,22 +31,16 @@ public class HillClimbing implements InitializationApproach {
         List<Route> initialPopulation = new ArrayList<>();
         for (int i = 0; i < ConfigParameters.populationSize; i++) {
             Route route = new Route(randomRoute(), numberOfCities, citiesDistance, 0);
-
             Route neighborRoute;
-
             for (int j = 0; j < iterationsBeforeMaxima; j++) {
                 neighborRoute = getNeighbor(route, numberOfCities);
                 if (neighborRoute.getFitness() < route.getFitness()) {
                     route = neighborRoute;
                 }
             }
-
             initialPopulation.add(route);
-
         }
-
         return initialPopulation;
-
     }
 
     //This method returns a neighbor based on the incomming route.

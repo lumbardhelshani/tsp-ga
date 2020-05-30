@@ -34,13 +34,13 @@ public class SimulatedAnnealing implements InitializationApproach {
             Route currentRoute = new Route(randomRoute(), 90, citiesDistance, 0);
             Route bestRoute = currentRoute;
             while (startingTemperature > 1) {
-                // Create new neighbour tour
+                // Create new neighbour route
                 List<Integer> permutations = randomRoute();
                 Route newRoute = new Route(permutations, 90, citiesDistance, 0);
 
                 newRoute = getNeighbor(newRoute);
 
-                // Get energy of solutions
+                // Get fitness of solutions
                 double currentEnergy = currentRoute.getFitness();
                 double neighbourEnergy = newRoute.getFitness();
 
@@ -58,7 +58,6 @@ public class SimulatedAnnealing implements InitializationApproach {
                 // Cool system
                 startingTemperature *= 1 - coolingRate;
             }
-
             initialPopulation.add(bestRoute);
         }
         // Loop until system has cooled

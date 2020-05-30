@@ -15,12 +15,12 @@ public class Route implements Comparable {
     int numberOfCities = 0;
     //This is a n*n matrix (n - number of cities), representing the distances between each city.
     double[][] citiesDistance;
-    //This is the
+    //This is the fitness of the solution.
     double fitness;
-
+    //In this atribute is stored route probability.
     public double tourProbability;
 
-    //This constructor is use to
+    //This constructor is use to create a Route and set the list of cities randomly.
     public Route(int numberOfCities, double[][] citiesDistance, int startingCity) {
         this.citiesDistance = citiesDistance;
         this.startingCity = startingCity;
@@ -28,7 +28,6 @@ public class Route implements Comparable {
         solution = randomSalesman();
         fitness = this.calculateFitness();
     }
-
 
     //This constructor is used to generate a Route with a specific order of cities, defined from user
     public Route(List<Integer> permutationOfCities, int numberOfCities, double[][] citiesDistance, int startingCity) {
@@ -61,7 +60,7 @@ public class Route implements Comparable {
         this.fitness = fitness;
     }
 
-
+    //This is the main method that is used to compare two routes based on their fitness.
     public double calculateFitness() {
         double fitness = 0;
         int currentCity = startingCity;
@@ -73,6 +72,7 @@ public class Route implements Comparable {
         return fitness;
     }
 
+    //This method is used to set a probability for a specific route, in order to select in roulette wheel approach.
     public void setTourProbability(double total, double fitness) {
         this.tourProbability = fitness / total;
     }
@@ -87,6 +87,7 @@ public class Route implements Comparable {
         return result;
     }
 
+    //This method is used to print a Route in the console.
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -103,7 +104,7 @@ public class Route implements Comparable {
         return sb.toString();
     }
 
-
+    //This method is used to compare two routes.
     @Override
     public int compareTo(Object o) {
         Route route = (Route) o;
