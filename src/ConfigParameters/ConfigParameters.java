@@ -27,7 +27,7 @@ public class ConfigParameters {
     public static int targetFitness = 0;
     //Route Length.
     public static int routeSize = numberOfCities-1;
-    //Text file path for reading the data.
+    //Text file path for reading the data, this path is based on windows, for UNIX based systems (Mac, Linux, etc.) use this url path -> "./src/data/travel.txt"
     public static String travelDataPath = ".\\src\\data\\travel.txt";
 }
 
