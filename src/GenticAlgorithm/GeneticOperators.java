@@ -34,7 +34,7 @@ public class GeneticOperators {
         }
     }
 
-    //Implementation of the PMXCrossover Algorithim
+    //Implementation of the PMXCrossover Operator
     public List<Route> PMXcrossover(List<Route> parents) {
         Random random = new Random();
         int breakpoint = random.nextInt(this.routeSize);
@@ -57,7 +57,7 @@ public class GeneticOperators {
         return children;
     }
 
-    //Implementation of the CYCLECrossover Algorithim
+    //Implementation of the CYCLECrossover Operator
     public List<Route> CYCLECcrossover(List<Route> parents) {
         List<Integer> parent1 = new ArrayList(parents.get(0).getSolution());
         List<Integer> parent2 = new ArrayList(parents.get(1).getSolution());

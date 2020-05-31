@@ -98,7 +98,7 @@ public class SimulatedAnnealing implements InitializationApproach {
         if (newEnergy < energy) {
             return 1.0;
         }
-        // If the new solution is worse, calculate an acceptance probability
+        // If the new solution is worse, calculate an acceptance probability.
         return Math.exp((energy - newEnergy) / temperature);
     }
 }
