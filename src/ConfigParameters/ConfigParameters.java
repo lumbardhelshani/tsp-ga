@@ -1,6 +1,6 @@
 package ConfigParameters;
 
-//Here are the global parameters for the application.
+//Here are the global parameters for the algorithm.
 public class ConfigParameters {
     private ConfigParameters() {
     }
