@@ -13,10 +13,9 @@ public class Main {
         int numberOfCities = ConfigParameters.numberOfCities;
         double[][] citiesDistance = getDoubles(numberOfCities);
         //printTravelPrices(citiesDistance, numberOfCities);
-        TravelSalesman geneticAlgorithm = new TravelSalesman(SelectionType.ROULETTE, citiesDistance, InitializationType.RANDOM, CrossoverType.CYCLE);
+        TravelSalesman geneticAlgorithm = new TravelSalesman(SelectionType.ROULETTE, citiesDistance, InitializationType.SIMULATEDANNEALING, CrossoverType.PMX);
         Route result = geneticAlgorithm.optimize();
         System.out.println(result);
-
     }
 
     //This method is used to read the distance matrix of cities from a txt file
